@@ -709,7 +709,12 @@
                 </div>
             `;
 
-            container.innerHTML += html;
+            // ใช้ createElement และ appendChild แทน innerHTML += เพื่อไม่ให้คำถามเดิมหายไป
+            const temp = document.createElement('div');
+            temp.innerHTML = html;
+            const newQuestion = temp.firstElementChild;
+            container.appendChild(newQuestion);
+            
             updateOptions(questionId, 2);
             surveyData.part1.push({ id: questionId, type: 'multiple-choice' });
             triggerAutoSave();
@@ -718,15 +723,21 @@
         // Update options for multiple choice questions
         function updateOptions(questionId, count) {
             const optionsList = document.querySelector(`#${questionId} .options-list`);
-            optionsList.innerHTML = '';
+            optionsList.innerHTML = ''; // ล้างตัวเลือกเก่า
 
             for (let i = 0; i < count; i++) {
-                const optionHtml = `
-                    <div class="option-input-group">
-                        <input type="text" placeholder="ตัวเลือก ${i + 1}" class="option-text" onchange="triggerAutoSave()" oninput="triggerAutoSave()">
-                    </div>
-                `;
-                optionsList.innerHTML += optionHtml;
+                const optionDiv = document.createElement('div');
+                optionDiv.className = 'option-input-group';
+                
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.className = 'option-text';
+                input.placeholder = `ตัวเลือก ${i + 1}`;
+                input.addEventListener('change', triggerAutoSave);
+                input.addEventListener('input', triggerAutoSave);
+                
+                optionDiv.appendChild(input);
+                optionsList.appendChild(optionDiv);
             }
         }
 
@@ -758,7 +769,12 @@
                 </div>
             `;
 
-            container.innerHTML += html;
+            // ใช้ appendChild แทน innerHTML +=
+            const temp = document.createElement('div');
+            temp.innerHTML = html;
+            const newSubgroup = temp.firstElementChild;
+            container.appendChild(newSubgroup);
+            
             surveyData.part2.push({ id: subgroupId, type: 'subgroup', questions: [] });
             triggerAutoSave();
         }
@@ -783,7 +799,12 @@
                 </div>
             `;
 
-            questionsContainer.innerHTML += html;
+            // ใช้ appendChild แทน innerHTML +=
+            const temp = document.createElement('div');
+            temp.innerHTML = html;
+            const newQuestion = temp.firstElementChild;
+            questionsContainer.appendChild(newQuestion);
+            
             triggerAutoSave();
         }
 
@@ -831,7 +852,12 @@
                 </div>
             `;
 
-            document.getElementById('part3-container').innerHTML += html;
+            // ใช้ appendChild แทน innerHTML +=
+            const temp = document.createElement('div');
+            temp.innerHTML = html;
+            const newQuestion = temp.firstElementChild;
+            container.appendChild(newQuestion);
+            
             surveyData.part3.push({ id: questionId, type: 'open-ended' });
             triggerAutoSave();
         }
