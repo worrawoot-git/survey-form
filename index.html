@@ -231,67 +231,6 @@
             font-size: 12px;
         }
 
-        .radio-group,
-        .checkbox-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .radio-option,
-        .checkbox-option {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            background: white;
-            border-radius: 6px;
-            border: 2px solid #e0e0e0;
-        }
-
-        input[type="radio"],
-        input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            cursor: pointer;
-            accent-color: #667eea;
-        }
-
-        .rating-scale {
-            display: flex;
-            gap: 10px;
-            justify-content: flex-start;
-            flex-wrap: wrap;
-        }
-
-        .rating-option {
-            flex: 0 1 auto;
-        }
-
-        .rating-option input[type="radio"] {
-            display: none;
-        }
-
-        .rating-option label {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 80px;
-            height: 40px;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            cursor: pointer;
-            margin: 0;
-            background: white;
-            transition: all 0.3s;
-        }
-
-        .rating-option input[type="radio"]:checked + label {
-            background: #667eea;
-            color: white;
-            border-color: #667eea;
-        }
-
         .option-input-group {
             display: flex;
             gap: 10px;
@@ -348,13 +287,6 @@
             flex-wrap: wrap;
         }
 
-        .two-column {
-            display: grid;
-            grid-template-columns: 1fr 200px;
-            gap: 15px;
-            align-items: start;
-        }
-
         .question-with-code {
             display: flex;
             gap: 15px;
@@ -379,10 +311,6 @@
         }
 
         @media (max-width: 768px) {
-            .two-column {
-                grid-template-columns: 1fr;
-            }
-
             .question-with-code {
                 flex-direction: column;
             }
@@ -425,30 +353,10 @@
             border-radius: 7px 7px 0 0;
         }
 
-        .empty-state {
-            text-align: center;
-            padding: 40px;
-            color: #999;
-        }
-
-        .empty-state-icon {
-            font-size: 48px;
-            margin-bottom: 15px;
-        }
-
         .success-message {
             background: #d4edda;
             border: 2px solid #51cf66;
             color: #155724;
-            padding: 15px;
-            border-radius: 6px;
-            margin-bottom: 20px;
-        }
-
-        .error-message {
-            background: #f8d7da;
-            border: 2px solid #ff6b6b;
-            color: #721c24;
             padding: 15px;
             border-radius: 6px;
             margin-bottom: 20px;
@@ -461,69 +369,158 @@
             padding: 15px;
             border-radius: 6px;
             margin-bottom: 20px;
-        }
-
-        .tabs {
             display: flex;
-            gap: 5px;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #e0e0e0;
+            align-items: center;
+            gap: 10px;
         }
 
-        .tab {
+        .info-message::before {
+            content: '✅';
+            font-size: 18px;
+        }
+
+        .auto-save-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
             padding: 12px 20px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            color: #666;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-        }
-
-        .tab.active {
-            color: #667eea;
-            border-bottom-color: #667eea;
-        }
-
-        .tab-content {
+            border-radius: 6px;
+            border-left: 4px solid #51cf66;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            font-size: 12px;
+            color: #155724;
             display: none;
+            z-index: 999;
+            animation: slideIn 0.3s ease-out;
         }
 
-        .tab-content.active {
+        .auto-save-indicator.show {
             display: block;
         }
 
-        .preview-box {
-            background: #f5f5f5;
-            padding: 20px;
-            border-radius: 8px;
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        /* Styles for Part 2 Subgroups */
+        .part2-subgroup {
+            background: #f8f9fa;
             border: 2px solid #e0e0e0;
-            margin-top: 15px;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
         }
 
-        .loading {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
+        .subgroup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #667eea;
+            gap: 10px;
+        }
+
+        .subgroup-number {
+            background: #667eea;
+            color: white;
+            width: 35px;
+            height: 35px;
             border-radius: 50%;
-            border-top-color: white;
-            animation: spin 1s ease-in-out infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 14px;
+            flex-shrink: 0;
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .subgroup-title-input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .subgroup-title-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .subgroup-header-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .questions-in-subgroup {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .subgroup-question-item {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #667eea;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .subgroup-question-row {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .subgroup-question-input {
+            flex: 1;
+            padding: 8px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 13px;
+        }
+
+        .subgroup-question-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+        }
+
+        .question-code-display {
+            font-size: 11px;
+            color: #666;
+            background: #f5f5f5;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
         }
     </style>
 </head>
 <body>
+    <!-- Auto-save indicator -->
+    <div id="autoSaveIndicator" class="auto-save-indicator">
+        ✅ บันทึกอัตโนมัติเรียบร้อย
+    </div>
+
     <div class="container">
         <!-- Header -->
         <div class="header">
             <h1>🎓 ระบบสร้างแบบสอบถามมาตรฐาน</h1>
-            <p>สร้างแบบสอบถามวิจัยที่มีมาตรฐานด้วยเครื่องมือออกแบบที่ง่ายใช้</p>
+            <p>สร้างแบบสอบถามวิจัยที่มีมาตรฐานด้วยเครื่องมือออกแบบที่ง่ายใช้ (Auto-save enabled ✅)</p>
         </div>
 
         <!-- Main Content -->
@@ -531,8 +528,8 @@
             <!-- Toolbar -->
             <div class="toolbar">
                 <div class="toolbar-left">
-                    <button class="btn btn-primary" onclick="saveSurvey()">
-                        💾 บันทึก
+                    <button class="btn btn-success" onclick="manualSave()">
+                        💾 บันทึกด้วยตนเอง
                     </button>
                     <button class="btn btn-info" onclick="showPreview()">
                         👁️ ตัวอย่าง
@@ -554,17 +551,17 @@
 
                 <div class="form-group">
                     <label for="surveyTitle">ชื่อหัวข้อวิจัย *</label>
-                    <input type="text" id="surveyTitle" placeholder="เช่น: การศึกษาความพึงพอใจของผู้บริโภค" required>
+                    <input type="text" id="surveyTitle" placeholder="เช่น: การศึกษาความพึงพอใจของผู้บริโภค" required onchange="triggerAutoSave()" oninput="triggerAutoSave()">
                 </div>
 
                 <div class="form-group">
                     <label for="surveyDescription">คำชี้แจง *</label>
-                    <textarea id="surveyDescription" placeholder="เช่น: กรุณาตอบแบบสอบถามนี้โดยตรงจากความเป็นจริง..." required></textarea>
+                    <textarea id="surveyDescription" placeholder="เช่น: กรุณาตอบแบบสอบถามนี้โดยตรงจากความเป็นจริง..." required onchange="triggerAutoSave()" oninput="triggerAutoSave()"></textarea>
                 </div>
 
                 <div class="form-group">
                     <label for="researcherName">ชื่อผู้วิจัย *</label>
-                    <input type="text" id="researcherName" placeholder="เช่น: นาย สมชาย แก้วทอง" required>
+                    <input type="text" id="researcherName" placeholder="เช่น: นาย สมชาย แก้วทอง" required onchange="triggerAutoSave()" oninput="triggerAutoSave()">
                 </div>
             </div>
 
@@ -581,15 +578,15 @@
                 </div>
             </div>
 
-            <!-- Part 2: Rating Scale -->
+            <!-- Part 2: Rating Scale with Subgroups -->
             <div class="part-section">
                 <div class="part-header">ตอนที่ 2: การประเมินแบบระดับ (Rating Scale)</div>
 
                 <div id="part2-container"></div>
 
                 <div class="action-buttons">
-                    <button class="btn btn-primary" onclick="addPart2Question()">
-                        ➕ เพิ่มคำถาม
+                    <button class="btn btn-primary" onclick="addPart2Subgroup()">
+                        ➕ เพิ่มหัวข้อย่อย
                     </button>
                 </div>
             </div>
@@ -628,6 +625,47 @@
             part3: []
         };
 
+        // Auto-save configuration
+        const AUTO_SAVE_TIMEOUT = 1000; // milliseconds
+        let autoSaveTimer = null;
+
+        // Trigger auto-save on any input change
+        function triggerAutoSave() {
+            clearTimeout(autoSaveTimer);
+            autoSaveTimer = setTimeout(() => {
+                autoSaveData();
+            }, AUTO_SAVE_TIMEOUT);
+        }
+
+        // Auto-save data
+        function autoSaveData() {
+            const title = document.getElementById('surveyTitle').value;
+            
+            if (!title) return; // Don't auto-save if no title
+            
+            const surveyJSON = JSON.stringify({
+                title: document.getElementById('surveyTitle').value,
+                description: document.getElementById('surveyDescription').value,
+                researcher: document.getElementById('researcherName').value,
+                part1: getSectionData('part1'),
+                part2: getSectionDataPart2(),
+                part3: getSectionData('part3'),
+                savedAt: new Date().toLocaleString('th-TH')
+            }, null, 2);
+
+            localStorage.setItem('surveyData', surveyJSON);
+            showAutoSaveIndicator();
+        }
+
+        // Show auto-save indicator
+        function showAutoSaveIndicator() {
+            const indicator = document.getElementById('autoSaveIndicator');
+            indicator.classList.add('show');
+            setTimeout(() => {
+                indicator.classList.remove('show');
+            }, 2000);
+        }
+
         // Part 1: Add Multiple Choice Question
         function addPart1Question() {
             const container = document.getElementById('part1-container');
@@ -641,12 +679,12 @@
                         <div class="question-main">
                             <div class="form-group">
                                 <label>คำถามที่ ${questionNumber}</label>
-                                <input type="text" class="question-text" placeholder="เช่น: เพศ" required>
+                                <input type="text" class="question-text" placeholder="เช่น: เพศ" required onchange="triggerAutoSave()" oninput="triggerAutoSave()">
                             </div>
 
                             <div class="form-group">
                                 <label>จำนวนตัวเลือก</label>
-                                <input type="number" class="option-count" value="2" min="2" max="10" onchange="updateOptions('${questionId}', this.value)">
+                                <input type="number" class="option-count" value="2" min="2" max="10" onchange="updateOptions('${questionId}', this.value); triggerAutoSave()">
                             </div>
 
                             <div class="form-group">
@@ -664,7 +702,7 @@
                     </div>
 
                     <div class="action-buttons">
-                        <button class="btn btn-danger btn-sm" onclick="removeQuestion('${questionId}')">
+                        <button class="btn btn-danger btn-sm" onclick="removeQuestion('${questionId}'); triggerAutoSave()">
                             🗑️ ลบ
                         </button>
                     </div>
@@ -674,69 +712,79 @@
             container.innerHTML += html;
             updateOptions(questionId, 2);
             surveyData.part1.push({ id: questionId, type: 'multiple-choice' });
+            triggerAutoSave();
         }
 
-        // Part 2: Add Rating Scale Question
-        function addPart2Question() {
+        // Update options for multiple choice questions
+        function updateOptions(questionId, count) {
+            const optionsList = document.querySelector(`#${questionId} .options-list`);
+            optionsList.innerHTML = '';
+
+            for (let i = 0; i < count; i++) {
+                const optionHtml = `
+                    <div class="option-input-group">
+                        <input type="text" placeholder="ตัวเลือก ${i + 1}" class="option-text" onchange="triggerAutoSave()" oninput="triggerAutoSave()">
+                    </div>
+                `;
+                optionsList.innerHTML += optionHtml;
+            }
+        }
+
+        // Part 2: Add Subgroup
+        function addPart2Subgroup() {
             const container = document.getElementById('part2-container');
-            const questionNumber = container.children.length + 1;
-            const questionId = 'part2-q' + Date.now();
-            const codeId = 'q' + (surveyData.part1.length + questionNumber);
+            const subgroupNumber = container.children.length + 1;
+            const subgroupId = 'part2-subgroup-' + Date.now();
 
             const html = `
-                <div class="question-item" id="${questionId}">
-                    <div class="question-with-code">
-                        <div class="question-main">
-                            <div class="form-group">
-                                <label>คำถามที่ ${questionNumber}</label>
-                                <input type="text" class="question-text" placeholder="เช่น: ระดับความพึงพอใจต่อบริการ" required>
-                            </div>
-
-                            <div class="preview-box">
-                                <label style="display: block; margin-bottom: 10px;">มาตราส่วน (1-5):</label>
-                                <div class="rating-scale">
-                                    <div class="rating-option">
-                                        <input type="radio" name="rating-${questionId}" id="rate-1-${questionId}" value="1">
-                                        <label for="rate-1-${questionId}">1<br><small>น้อยที่สุด</small></label>
-                                    </div>
-                                    <div class="rating-option">
-                                        <input type="radio" name="rating-${questionId}" id="rate-2-${questionId}" value="2">
-                                        <label for="rate-2-${questionId}">2<br><small>น้อย</small></label>
-                                    </div>
-                                    <div class="rating-option">
-                                        <input type="radio" name="rating-${questionId}" id="rate-3-${questionId}" value="3" checked>
-                                        <label for="rate-3-${questionId}">3<br><small>ปานกลาง</small></label>
-                                    </div>
-                                    <div class="rating-option">
-                                        <input type="radio" name="rating-${questionId}" id="rate-4-${questionId}" value="4">
-                                        <label for="rate-4-${questionId}">4<br><small>มาก</small></label>
-                                    </div>
-                                    <div class="rating-option">
-                                        <input type="radio" name="rating-${questionId}" id="rate-5-${questionId}" value="5">
-                                        <label for="rate-5-${questionId}">5<br><small>มากที่สุด</small></label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="code-section">
-                            <label>รหัสคำถาม</label>
-                            <div class="code-input-box">
-                                <input type="text" class="question-code code-input" value="${codeId}" readonly style="width: 100%; margin: 0;">
-                            </div>
+                <div class="part2-subgroup" id="${subgroupId}">
+                    <div class="subgroup-header">
+                        <div class="subgroup-number">${subgroupNumber}</div>
+                        <input type="text" class="subgroup-title-input" placeholder="เช่น: ความพึงพอใจด้านบริการ" onchange="triggerAutoSave()" oninput="triggerAutoSave()">
+                        <div class="subgroup-header-buttons">
+                            <button class="btn btn-danger btn-sm" onclick="removePart2Subgroup('${subgroupId}'); triggerAutoSave()">
+                                🗑️ ลบหัวข้อ
+                            </button>
                         </div>
                     </div>
 
+                    <div class="questions-in-subgroup" id="questions-${subgroupId}"></div>
+
                     <div class="action-buttons">
-                        <button class="btn btn-danger btn-sm" onclick="removeQuestion('${questionId}')">
-                            🗑️ ลบ
+                        <button class="btn btn-primary btn-sm" onclick="addQuestionToPart2Subgroup('${subgroupId}')">
+                            ➕ เพิ่มคำถาม
                         </button>
                     </div>
                 </div>
             `;
 
-            document.getElementById('part2-container').innerHTML += html;
-            surveyData.part2.push({ id: questionId, type: 'rating-scale' });
+            container.innerHTML += html;
+            surveyData.part2.push({ id: subgroupId, type: 'subgroup', questions: [] });
+            triggerAutoSave();
+        }
+
+        // Add question to Part 2 subgroup
+        function addQuestionToPart2Subgroup(subgroupId) {
+            const questionsContainer = document.getElementById('questions-' + subgroupId);
+            const questionNumber = questionsContainer.children.length + 1;
+            const questionId = 'part2-q-' + Date.now();
+            const part1Count = getSectionData('part1').length;
+            const codeId = 'q' + (part1Count + questionNumber);
+
+            const html = `
+                <div class="subgroup-question-item" id="${questionId}">
+                    <div class="subgroup-question-row">
+                        <input type="text" class="subgroup-question-input" placeholder="เช่น: ฉันพึงพอใจกับคุณภาพของบริการ" required onchange="triggerAutoSave()" oninput="triggerAutoSave()">
+                        <button class="btn btn-danger btn-sm" onclick="removeQuestion('${questionId}'); triggerAutoSave()">
+                            🗑️
+                        </button>
+                    </div>
+                    <div class="question-code-display">รหัส: <span class="question-code">${codeId}</span></div>
+                </div>
+            `;
+
+            questionsContainer.innerHTML += html;
+            triggerAutoSave();
         }
 
         // Part 3: Add Open-Ended Question
@@ -744,7 +792,9 @@
             const container = document.getElementById('part3-container');
             const questionNumber = container.children.length + 1;
             const questionId = 'part3-q' + Date.now();
-            const codeId = 'q' + (surveyData.part1.length + surveyData.part2.length + questionNumber);
+            const part1Count = getSectionData('part1').length;
+            const part2Count = getSectionDataPart2().reduce((total, sg) => total + sg.questions.length, 0);
+            const codeId = 'q' + (part1Count + part2Count + questionNumber);
 
             const html = `
                 <div class="question-item" id="${questionId}">
@@ -752,7 +802,7 @@
                         <div class="question-main">
                             <div class="form-group">
                                 <label>คำถามที่ ${questionNumber}</label>
-                                <input type="text" class="question-text" placeholder="เช่น: ความคิดเห็นของท่านเกี่ยวกับการให้บริการ" required>
+                                <input type="text" class="question-text" placeholder="เช่น: ความคิดเห็นของท่านเกี่ยวกับการให้บริการ" required onchange="triggerAutoSave()" oninput="triggerAutoSave()">
                             </div>
 
                             <div class="form-group">
@@ -774,7 +824,7 @@
                     </div>
 
                     <div class="action-buttons">
-                        <button class="btn btn-danger btn-sm" onclick="removeQuestion('${questionId}')">
+                        <button class="btn btn-danger btn-sm" onclick="removeQuestion('${questionId}'); triggerAutoSave()">
                             🗑️ ลบ
                         </button>
                     </div>
@@ -783,32 +833,27 @@
 
             document.getElementById('part3-container').innerHTML += html;
             surveyData.part3.push({ id: questionId, type: 'open-ended' });
-        }
-
-        // Update options for multiple choice questions
-        function updateOptions(questionId, count) {
-            const optionsList = document.querySelector(`#${questionId} .options-list`);
-            optionsList.innerHTML = '';
-
-            for (let i = 0; i < count; i++) {
-                const optionHtml = `
-                    <div class="option-input-group">
-                        <input type="text" placeholder="ตัวเลือก ${i + 1}" class="option-text">
-                    </div>
-                `;
-                optionsList.innerHTML += optionHtml;
-            }
+            triggerAutoSave();
         }
 
         // Remove question
         function removeQuestion(questionId) {
             if (confirm('คุณต้องการลบคำถามนี้หรือไม่?')) {
                 document.getElementById(questionId).remove();
+                triggerAutoSave();
             }
         }
 
-        // Save survey
-        function saveSurvey() {
+        // Remove Part 2 subgroup
+        function removePart2Subgroup(subgroupId) {
+            if (confirm('คุณต้องการลบหัวข้อย่อยนี้หรือไม่?')) {
+                document.getElementById(subgroupId).remove();
+                triggerAutoSave();
+            }
+        }
+
+        // Manual save
+        function manualSave() {
             const title = document.getElementById('surveyTitle').value;
             const description = document.getElementById('surveyDescription').value;
             const researcher = document.getElementById('researcherName').value;
@@ -818,21 +863,11 @@
                 return;
             }
 
-            const surveyJSON = JSON.stringify({
-                title,
-                description,
-                researcher,
-                part1: getSectionData('part1'),
-                part2: getSectionData('part2'),
-                part3: getSectionData('part3'),
-                savedAt: new Date().toLocaleString('th-TH')
-            }, null, 2);
-
-            localStorage.setItem('surveyData', surveyJSON);
+            autoSaveData();
             showSuccessMessage('บันทึกแบบสอบถามสำเร็จ!');
         }
 
-        // Get section data
+        // Get section data for Part 1 and 3
         function getSectionData(partId) {
             const container = document.getElementById(`${partId}-container`);
             const questions = [];
@@ -861,6 +896,38 @@
             return questions;
         }
 
+        // Get section data for Part 2
+        function getSectionDataPart2() {
+            const container = document.getElementById('part2-container');
+            const subgroups = [];
+
+            container.querySelectorAll('.part2-subgroup').forEach((subgroup, index) => {
+                const subgroupTitle = subgroup.querySelector('.subgroup-title-input').value;
+                const subgroupId = subgroup.id;
+                const questions = [];
+
+                const questionsContainer = document.getElementById('questions-' + subgroupId);
+                questionsContainer.querySelectorAll('.subgroup-question-item').forEach((item, qIndex) => {
+                    const questionText = item.querySelector('.subgroup-question-input').value;
+                    const questionCode = item.querySelector('.question-code').textContent;
+
+                    questions.push({
+                        number: qIndex + 1,
+                        text: questionText,
+                        code: questionCode
+                    });
+                });
+
+                subgroups.push({
+                    number: index + 1,
+                    title: subgroupTitle,
+                    questions: questions
+                });
+            });
+
+            return subgroups;
+        }
+
         // Show preview
         function showPreview() {
             const title = document.getElementById('surveyTitle').value;
@@ -881,29 +948,32 @@
             `;
 
             // Part 1
-            if (document.getElementById('part1-container').children.length > 0) {
+            const part1Data = getSectionData('part1');
+            if (part1Data.length > 0) {
                 previewHtml += '<h3 style="color: #667eea; margin-top: 20px;">ตอนที่ 1: ข้อมูลทั่วไป</h3>';
-                document.getElementById('part1-container').querySelectorAll('.question-item').forEach((item, index) => {
-                    const text = item.querySelector('.question-text').value;
-                    previewHtml += `<p><strong>${index + 1}. ${text}</strong></p>`;
+                part1Data.forEach((q) => {
+                    previewHtml += `<p><strong>${q.number}. ${q.text}</strong> (รหัส: ${q.code})</p>`;
                 });
             }
 
             // Part 2
-            if (document.getElementById('part2-container').children.length > 0) {
+            const part2Data = getSectionDataPart2();
+            if (part2Data.length > 0) {
                 previewHtml += '<h3 style="color: #667eea; margin-top: 20px;">ตอนที่ 2: การประเมินแบบระดับ (1-5)</h3>';
-                document.getElementById('part2-container').querySelectorAll('.question-item').forEach((item, index) => {
-                    const text = item.querySelector('.question-text').value;
-                    previewHtml += `<p><strong>${index + 1}. ${text}</strong></p>`;
+                part2Data.forEach((subgroup) => {
+                    previewHtml += `<h4 style="color: #764ba2; margin-top: 15px;">${subgroup.number}. ${subgroup.title}</h4>`;
+                    subgroup.questions.forEach((q) => {
+                        previewHtml += `<p style="margin-left: 20px;">• ${q.text} (รหัส: ${q.code})</p>`;
+                    });
                 });
             }
 
             // Part 3
-            if (document.getElementById('part3-container').children.length > 0) {
+            const part3Data = getSectionData('part3');
+            if (part3Data.length > 0) {
                 previewHtml += '<h3 style="color: #667eea; margin-top: 20px;">ตอนที่ 3: คำถามปลายเปิด</h3>';
-                document.getElementById('part3-container').querySelectorAll('.question-item').forEach((item, index) => {
-                    const text = item.querySelector('.question-text').value;
-                    previewHtml += `<p><strong>${index + 1}. ${text}</strong></p>`;
+                part3Data.forEach((q) => {
+                    previewHtml += `<p><strong>${q.number}. ${q.text}</strong> (รหัส: ${q.code})</p>`;
                 });
             }
 
@@ -926,6 +996,10 @@
                 return;
             }
 
+            const part1Data = getSectionData('part1');
+            const part2Data = getSectionDataPart2();
+            const part3Data = getSectionData('part3');
+
             let docContent = `
 <!DOCTYPE html>
 <html>
@@ -935,13 +1009,16 @@
         body { font-family: 'Cordia New', 'Tahoma'; margin: 40px; }
         h1 { text-align: center; color: #333; }
         h2 { color: #667eea; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
+        h3 { color: #764ba2; margin-top: 15px; }
         .info { margin-bottom: 20px; text-align: center; }
         .section { margin-bottom: 30px; }
         .question { margin-bottom: 15px; padding: 15px; border-left: 4px solid #667eea; }
+        .subgroup { margin-bottom: 20px; padding: 15px; background: #f5f5f5; border-radius: 6px; }
         .question-text { font-weight: bold; }
         .rating-scale { margin-top: 10px; }
         .open-ended { margin-top: 10px; border-top: 1px dashed #ccc; padding-top: 20px; }
         page-break { page-break-after: always; }
+        .code { font-size: 10px; color: #999; margin-top: 3px; }
     </style>
 </head>
 <body>
@@ -954,21 +1031,16 @@
 `;
 
             // Part 1
-            if (document.getElementById('part1-container').children.length > 0) {
+            if (part1Data.length > 0) {
                 docContent += '<h2>ตอนที่ 1: ข้อมูลทั่วไป</h2><div class="section">';
-                document.getElementById('part1-container').querySelectorAll('.question-item').forEach((item, index) => {
-                    const text = item.querySelector('.question-text').value;
-                    const options = [];
-                    item.querySelectorAll('.option-text').forEach(opt => {
-                        if (opt.value) options.push(opt.value);
-                    });
-
+                part1Data.forEach((q) => {
                     docContent += `
                         <div class="question">
-                            <div class="question-text">${index + 1}. ${text}</div>
+                            <div class="question-text">${q.number}. ${q.text}</div>
                             <div style="margin-top: 10px;">
-                                ${options.map((opt, i) => `<p>☐ ${opt}</p>`).join('')}
+                                ${q.options.map((opt) => `<p>☐ ${opt}</p>`).join('')}
                             </div>
+                            <div class="code">รหัส: ${q.code}</div>
                         </div>
                     `;
                 });
@@ -976,41 +1048,45 @@
             }
 
             // Part 2
-            if (document.getElementById('part2-container').children.length > 0) {
+            if (part2Data.length > 0) {
                 docContent += '<h2>ตอนที่ 2: การประเมินแบบระดับ (1-5)</h2><div class="section">';
-                document.getElementById('part2-container').querySelectorAll('.question-item').forEach((item, index) => {
-                    const text = item.querySelector('.question-text').value;
-                    docContent += `
-                        <div class="question">
-                            <div class="question-text">${index + 1}. ${text}</div>
-                            <div class="rating-scale">
-                                <table style="width: 100%;">
-                                    <tr>
-                                        <td style="width: 20%; text-align: center;">☐ 1 น้อยที่สุด</td>
-                                        <td style="width: 20%; text-align: center;">☐ 2 น้อย</td>
-                                        <td style="width: 20%; text-align: center;">☐ 3 ปานกลาง</td>
-                                        <td style="width: 20%; text-align: center;">☐ 4 มาก</td>
-                                        <td style="width: 20%; text-align: center;">☐ 5 มากที่สุด</td>
-                                    </tr>
-                                </table>
+                part2Data.forEach((subgroup) => {
+                    docContent += `<h3>${subgroup.number}. ${subgroup.title}</h3><div class="subgroup">`;
+                    subgroup.questions.forEach((q) => {
+                        docContent += `
+                            <div class="question">
+                                <div class="question-text">${q.number}. ${q.text}</div>
+                                <div class="rating-scale">
+                                    <table style="width: 100%;">
+                                        <tr>
+                                            <td style="width: 20%; text-align: center;">☐ 1<br>น้อยที่สุด</td>
+                                            <td style="width: 20%; text-align: center;">☐ 2<br>น้อย</td>
+                                            <td style="width: 20%; text-align: center;">☐ 3<br>ปานกลาง</td>
+                                            <td style="width: 20%; text-align: center;">☐ 4<br>มาก</td>
+                                            <td style="width: 20%; text-align: center;">☐ 5<br>มากที่สุด</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="code">รหัส: ${q.code}</div>
                             </div>
-                        </div>
-                    `;
+                        `;
+                    });
+                    docContent += '</div>';
                 });
                 docContent += '</div>';
             }
 
             // Part 3
-            if (document.getElementById('part3-container').children.length > 0) {
+            if (part3Data.length > 0) {
                 docContent += '<h2>ตอนที่ 3: คำถามปลายเปิด</h2><div class="section">';
-                document.getElementById('part3-container').querySelectorAll('.question-item').forEach((item, index) => {
-                    const text = item.querySelector('.question-text').value;
+                part3Data.forEach((q) => {
                     docContent += `
                         <div class="question">
-                            <div class="question-text">${index + 1}. ${text}</div>
+                            <div class="question-text">${q.number}. ${q.text}</div>
                             <div class="open-ended">
                                 ${Array(4).fill('<p>.....................................................................</p>').join('')}
                             </div>
+                            <div class="code">รหัส: ${q.code}</div>
                         </div>
                     `;
                 });
@@ -1040,6 +1116,7 @@
                 document.getElementById('part2-container').innerHTML = '';
                 document.getElementById('part3-container').innerHTML = '';
                 surveyData = { part1: [], part2: [], part3: [] };
+                localStorage.removeItem('surveyData');
             }
         }
 
@@ -1064,10 +1141,28 @@
         `;
         document.head.appendChild(style);
 
-        // Initialize with one question in each part
+        // Load saved data
+        function loadSavedData() {
+            const saved = localStorage.getItem('surveyData');
+            if (saved) {
+                try {
+                    const data = JSON.parse(saved);
+                    document.getElementById('surveyTitle').value = data.title || '';
+                    document.getElementById('surveyDescription').value = data.description || '';
+                    document.getElementById('researcherName').value = data.researcher || '';
+                } catch (e) {
+                    console.log('Could not load saved data');
+                }
+            }
+        }
+
+        // Initialize
         window.addEventListener('load', () => {
+            loadSavedData();
+            // Initialize with one question in each part
             addPart1Question();
-            addPart2Question();
+            addPart2Subgroup();
+            addQuestionToPart2Subgroup(document.querySelector('.part2-subgroup').id);
             addPart3Question();
         });
 
