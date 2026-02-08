@@ -178,6 +178,26 @@
             font-size: 12px;
         }
 
+        .btn-delete-tiny {
+            padding: 6px 10px;
+            font-size: 11px;
+            border-radius: 4px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            flex-shrink: 0;
+        }
+
+        .btn-delete-tiny:hover {
+            background: #ee5a52;
+            box-shadow: 0 2px 5px rgba(255, 107, 107, 0.3);
+        }
+
         .question-item {
             background: white;
             padding: 20px;
@@ -472,32 +492,74 @@
 
         .subgroup-question-item {
             background: white;
-            padding: 15px;
+            padding: 14px;
             border-radius: 6px;
             border-left: 4px solid #667eea;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .subgroup-question-item:hover {
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
         }
 
         .subgroup-question-row {
             display: flex;
-            gap: 10px;
-            align-items: flex-start;
+            gap: 8px;
+            align-items: center;
         }
 
         .subgroup-question-input {
-            flex: 1;
-            padding: 8px;
+            flex: 1 1 100%;
+            padding: 14px 16px;
             border: 2px solid #e0e0e0;
             border-radius: 6px;
-            font-size: 13px;
+            font-size: 15px;
+            background: #fafafa;
+            transition: all 0.3s;
+            min-height: 48px;
+            width: 100%;
+            max-width: 100%;
         }
 
         .subgroup-question-input:focus {
             outline: none;
             border-color: #667eea;
-            box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.1);
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .subgroup-question-input::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
+        .empty-subgroup-message {
+            text-align: center;
+            color: #999;
+            padding: 30px 20px;
+            background: #f5f5f5;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border: 2px dashed #ddd;
+        }
+
+        .empty-subgroup-message p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .empty-subgroup-message p:first-child {
+            color: #666;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .empty-subgroup-message p:last-child {
+            font-size: 12px;
+            color: #999;
         }
 
         .question-code-display {
@@ -507,6 +569,7 @@
             padding: 6px 10px;
             border-radius: 4px;
             font-family: 'Courier New', monospace;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -751,7 +814,7 @@
                 <div class="part2-subgroup" id="${subgroupId}">
                     <div class="subgroup-header">
                         <div class="subgroup-number">${subgroupNumber}</div>
-                        <input type="text" class="subgroup-title-input" placeholder="เช่น: ความพึงพอใจด้านบริการ" onchange="triggerAutoSave()" oninput="triggerAutoSave()">
+                        <input type="text" class="subgroup-title-input" placeholder="เช่น: ความพึงพอใจด้านบริการ" onchange="triggerAutoSave()" oninput="triggerAutoSave()" style="font-weight: 600; font-size: 16px;">
                         <div class="subgroup-header-buttons">
                             <button class="btn btn-danger btn-sm" onclick="removePart2Subgroup('${subgroupId}'); triggerAutoSave()">
                                 🗑️ ลบหัวข้อ
@@ -759,7 +822,12 @@
                         </div>
                     </div>
 
-                    <div class="questions-in-subgroup" id="questions-${subgroupId}"></div>
+                    <div class="questions-in-subgroup" id="questions-${subgroupId}">
+                        <div class="empty-subgroup-message">
+                            <p>✏️ ยังไม่มีคำถามในหัวข้อนี้</p>
+                            <p>กดปุ่มด้านล่างเพื่อเพิ่มคำถามแรก</p>
+                        </div>
+                    </div>
 
                     <div class="action-buttons">
                         <button class="btn btn-primary btn-sm" onclick="addQuestionToPart2Subgroup('${subgroupId}')">
@@ -782,16 +850,28 @@
         // Add question to Part 2 subgroup
         function addQuestionToPart2Subgroup(subgroupId) {
             const questionsContainer = document.getElementById('questions-' + subgroupId);
-            const questionNumber = questionsContainer.children.length + 1;
-            const questionId = 'part2-q-' + Date.now();
+            
+            // ลบข้อความแนะนำ "ยังไม่มีคำถาม"
+            const emptyMessage = questionsContainer.querySelector('.empty-subgroup-message');
+            if (emptyMessage) {
+                emptyMessage.remove();
+            }
+            
+            // นับจำนวนคำถามในหัวข้อย่อยนี้ (หลังจากลบข้อความแนะนำแล้ว)
+            const questionNumberInSubgroup = questionsContainer.querySelectorAll('.subgroup-question-item').length + 1;
+            
+            // นับจำนวนคำถามทั้งหมด
             const part1Count = getSectionData('part1').length;
-            const codeId = 'q' + (part1Count + questionNumber);
+            const part2Count = document.querySelectorAll('.subgroup-question-item').length;
+            const codeId = 'q' + (part1Count + part2Count + 1);
+
+            const questionId = 'part2-q-' + Date.now();
 
             const html = `
                 <div class="subgroup-question-item" id="${questionId}">
                     <div class="subgroup-question-row">
                         <input type="text" class="subgroup-question-input" placeholder="เช่น: ฉันพึงพอใจกับคุณภาพของบริการ" required onchange="triggerAutoSave()" oninput="triggerAutoSave()">
-                        <button class="btn btn-danger btn-sm" onclick="removeQuestion('${questionId}'); triggerAutoSave()">
+                        <button class="btn-delete-tiny" onclick="removeQuestion('${questionId}'); triggerAutoSave()" title="ลบคำถามนี้">
                             🗑️
                         </button>
                     </div>
@@ -804,6 +884,12 @@
             temp.innerHTML = html;
             const newQuestion = temp.firstElementChild;
             questionsContainer.appendChild(newQuestion);
+            
+            // Focus ที่ input ใหม่เพื่อให้ผู้ใช้เริ่มพิมพ์ได้ทันที
+            const inputField = newQuestion.querySelector('.subgroup-question-input');
+            setTimeout(() => {
+                inputField.focus();
+            }, 100);
             
             triggerAutoSave();
         }
@@ -1078,10 +1164,10 @@
                 docContent += '<h2>ตอนที่ 2: การประเมินแบบระดับ (1-5)</h2><div class="section">';
                 part2Data.forEach((subgroup) => {
                     docContent += `<h3>${subgroup.number}. ${subgroup.title}</h3><div class="subgroup">`;
-                    subgroup.questions.forEach((q) => {
+                    subgroup.questions.forEach((q, qIndex) => {
                         docContent += `
                             <div class="question">
-                                <div class="question-text">${q.number}. ${q.text}</div>
+                                <div class="question-text">${qIndex + 1}. ${q.text}</div>
                                 <div class="rating-scale">
                                     <table style="width: 100%;">
                                         <tr>
@@ -1106,11 +1192,13 @@
             if (part3Data.length > 0) {
                 docContent += '<h2>ตอนที่ 3: คำถามปลายเปิด</h2><div class="section">';
                 part3Data.forEach((q) => {
+                    // สร้างพื้นที่เว้นสำหรับการเขียนคำตอบ
+                    const blanks = '<p>.....................................................................</p><p>.....................................................................</p><p>.....................................................................</p><p>.....................................................................</p>';
                     docContent += `
                         <div class="question">
                             <div class="question-text">${q.number}. ${q.text}</div>
                             <div class="open-ended">
-                                ${Array(4).fill('<p>.....................................................................</p>').join('')}
+                                ${blanks}
                             </div>
                             <div class="code">รหัส: ${q.code}</div>
                         </div>
@@ -1121,15 +1209,20 @@
 
             docContent += '</body></html>';
 
-            const blob = new Blob([docContent], { type: 'application/msword' });
-            const url = window.URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = `${title.replace(/\s+/g, '_')}_${Date.now()}.doc`;
-            link.click();
-            window.URL.revokeObjectURL(url);
+            try {
+                const blob = new Blob([docContent], { type: 'application/msword' });
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `${title.replace(/\s+/g, '_')}_${Date.now()}.doc`;
+                link.click();
+                window.URL.revokeObjectURL(url);
 
-            showSuccessMessage('ส่งออก Word สำเร็จ!');
+                showSuccessMessage('ส่งออก Word สำเร็จ!');
+            } catch (error) {
+                console.error('Export error:', error);
+                showErrorMessage('เกิดข้อผิดพลาดในการส่งออก: ' + error.message);
+            }
         }
 
         // Reset form
@@ -1155,6 +1248,17 @@
             document.body.appendChild(msg);
 
             setTimeout(() => msg.remove(), 3000);
+        }
+
+        // Show error message
+        function showErrorMessage(message) {
+            const msg = document.createElement('div');
+            msg.className = 'error-message';
+            msg.style.cssText = 'position: fixed; top: 20px; right: 20px; z-index: 10000; animation: slideIn 0.3s ease-out;';
+            msg.textContent = '❌ ' + message;
+            document.body.appendChild(msg);
+
+            setTimeout(() => msg.remove(), 4000);
         }
 
         // Add animation
